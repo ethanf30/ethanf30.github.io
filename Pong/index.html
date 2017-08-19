@@ -6,7 +6,7 @@
 		<script>
 			function start(){
 				sjs.open();
-				var menu_text = new sjs.Text("MENU",28,"purple");
+				var menu_text = new sjs.Text("3D Pong",28,"purple");
 
 				menu_text.centerH();
 
@@ -15,6 +15,12 @@
 				});
 
 				startBtn.center();
+
+				var infoBtn = new sjs.Button("Info", function(){
+					window.location = "info.html";
+				});
+
+				infoBtn.moveTo(227,235);
 
 				var info_text = new sjs.Text("Created by ethanf30",20,"purple");
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Info </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open();
+
+				var info_text = new sjs.Text("I'm a 10 year old boy named Ethan, this is my first game I've ever done! It's not much but I hope you enjoy! I like to draw, alot! I have 5 siblings and love to play with LEGOs. I also play games like, Minecraft and Roblox! I hope you enjoy my game!",28,"Purple");
+
+				info_text.center();
+
+				var backBtn = new sjs.Button("Back", function(){
+					window.location = "index.html";
+				});
+
+				backBtn.center().bottom();
+
+			} //end start
+		</script>
+	</head>
+<body onload="start()">
+	<h1> Info </h1>
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>

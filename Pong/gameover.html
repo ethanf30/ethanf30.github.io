@@ -14,7 +14,13 @@ var restartBtn = new sjs.Button("Restart", function(){
 	window.location = "pong.html";
 })
 
-restartBtn.center().bottom();
+restartBtn.moveTo(95,240);
+
+var menuBtn = new sjs.Button("Back to Menu", function(){
+	window.location = "index.html";
+});
+
+menuBtn.moveTo(295,240)
 
 } //end start
 </script>
