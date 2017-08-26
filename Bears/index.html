@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Menu </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open("target",1650,825);
+
+				var background = new sjs.Image("Images/background.png")
+				background.setSize(sjs.getWidth(),sjs.getHeight());
+
+				var playM = new Audio('Music/only.mp3');
+				var musicOn = false;
+				var toggle = true;
+
+				sjs.keyDown(SPACE_KEY, function(){
+					if(toggle == true){
+						if(musicOn == false){
+							playM.play();
+							musicOn = true;
+						} else {
+							playM.pause();
+							musicOn = false;
+						}
+						toggle = false;
+						setTimeout(function(){
+							toggle = true;
+						},1000);
+					} //end if toggle statement
+				}); //end keyDown function
+
+
+				var menu_text = new sjs.Text("Bears",115,"purple");
+				menu_text.center();
+				menu_text.top();
+
+				var who = new sjs.Text("Made by ethanf30",45,"purple");
+				who.moveTo(650,115);
+
+				var startBtn = new sjs.Button("Start Game", function(){
+					window.location = "bear.html";
+				});
+
+				startBtn.center();
+
+				var bear = new sjs.Image("Images/grizzly_bear_right.gif");
+				bear.moveTo(820,820);
+				bear.grow(200,200);
+
+				var must = new sjs.Text("Must have zoom at 80%",50,"black");
+				must.moveTo(600,520);
+
+				var infoBtn = new sjs.Button("Controls", function(){
+					window.location = "info.html";
+				});
+				infoBtn.moveTo(780,435);
+	
+
+			}
+		</script>
+</head>
+<body onload="start()">
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>

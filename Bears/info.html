@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Controls </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open("target",1650,825);
+
+				var background = new sjs.Image("Images/background.png")
+				background.setSize(sjs.getWidth(),sjs.getHeight());
+
+				var backBtn = new sjs.Button("Back to Menu", function(){
+					window.location = "index.html";
+				});
+				backBtn.moveTo(825,780);
+
+				var P1 = new sjs.Image("Images/P1.png");
+				P1.moveTo(206,412);
+
+				var P2 = new sjs.Image("Images/P2.png");
+				P2.moveTo(1236,412);
+
+				var grizzly = new sjs.Image("Images/grizzly_bear_right.gif");
+				grizzly.moveTo(250,290);
+				grizzly.grow(200,205);
+
+				var polar = new sjs.Image("Images/polar_bear_left.gif"); 
+				polar.moveTo(1450,290);
+				polar.grow(200,205);
+
+				var made = new sjs.Text("Made by ethanf30",45,"purple");
+				made.center();
+				made.top();
+
+				var B = new sjs.Text("Press space for Music",58,"purple");
+				B.center();
+				B.grow(280,105);
+
+				var playM = new Audio('Music/only.mp3');
+				var musicOn = false;
+				var toggle = true;
+
+				sjs.keyDown(SPACE_KEY, function(){
+					if(toggle == true){
+						if(musicOn == false){
+							playM.play();
+							musicOn = true;
+						} else {
+							playM.pause();
+							musicOn = false;
+						}
+						toggle = false;
+						setTimeout(function(){
+							toggle = true;
+						},1000);
+					} //end if toggle statement
+				}); //end keyDown function
+
+				
+
+			}
+		</script>
+</head>
+<body onload="start()">
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>

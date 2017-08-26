@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Bears </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open("target",1650,825);
+				
+				var background = new sjs.Image("Images/background.png")
+				background.setSize(sjs.getWidth(),sjs.getHeight());
+
+				var playM = new Audio('Music/only.mp3');
+				var musicOn = false;
+				var toggle = true;
+
+				sjs.keyDown(SPACE_KEY, function(){
+					if(toggle == true){
+						if(musicOn == false){
+							playM.play();
+							musicOn = true;
+						} else {
+							playM.pause();
+							musicOn = false;
+						}
+						toggle = false;
+						setTimeout(function(){
+							toggle = true;
+						},1000);
+					} //end if toggle statement
+				}); //end keyDown function
+
+				//Player1
+				var player = new sjs.Image("Images/grizzly_bear_right.gif");
+				player.type = "player";
+
+				player.center();
+
+				player.friction = .2;
+				player.accel = .3;
+
+				sjs.keyDown(RIGHT_KEY, function(){
+					player.setImage("Images/grizzly_bear_right.gif");
+					player.pushRight();
+				});
+				
+				sjs.keyDown(LEFT_KEY, function(){
+					player.setImage("Images/grizzly_bear_left.gif");
+					player.pushLeft();
+				});
+
+				sjs.keyDown(UP_KEY, function(){
+					player.pushUp();
+				});
+
+				sjs.keyDown(DOWN_KEY, function(){
+					player.pushDown();
+				});
+
+				//Crumbs1
+				setInterval(function(){
+					var newHoney = new sjs.Image("Images/honey.png");
+					newHoney.type = "honey";
+					newHoney.friction = .1;
+					newHoney.setGravity();
+					newHoney.centerH();
+					newHoney.noBounds = true;
+				}, 10000);
+
+				sjs.onHit("honey","bottom_screen", function(x,y){
+					x.destroy();
+				});
+
+				sjs.onHit("player","honey",function(x,y){
+					x.grow(30,20);
+					setTimeout(function(){
+						x.grow(-30,-20);
+					}, 5000);
+						y.destroy();
+				});
+
+				//Crumbs2
+				setInterval(function(){
+					var newHoney = new sjs.Image("Images/honey.png");
+					newHoney.type = "honey";
+					newHoney.friction = .1;
+					newHoney.setGravity();
+					newHoney.centerH();
+					newHoney.noBounds = true;
+				}, 10000);
+
+				sjs.onHit("honey","bottom_screen", function(x,y){
+					x.destroy();
+				});
+
+				sjs.onHit("player2","honey",function(x,y){
+					x.grow(30,20);
+					setTimeout(function(){
+						x.grow(-30,-20);
+					}, 5000);
+						y.destroy();
+				});
+
+				//Enemies1
+				setInterval(function(){
+				var speed = Math.floor(1 + Math.random()*10); 
+				if(Math.random() > 0.5){ 
+					var enemy = new sjs.Image("Images/polar_bear_right.gif");
+					enemy.type = "enemy";
+					enemy.noBounds = true;
+					enemy.friction = 0;
+					enemy.pushRight(speed);
+					enemy.scaleSize(Math.random() * (player.getWidth() / 50));
+					enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y)); 
+				}
+			},3000);
+
+			sjs.left_screen.offset(-500); 
+
+			//Enemies2
+				setInterval(function(){
+				var speed = Math.floor(1 + Math.random()*5); 
+				if(Math.random() > 0.5){ 
+					var enemy2 = new sjs.Image("Images/grizzly_bear_right.gif");
+					enemy2.type = "enemy2";
+					enemy2.noBounds = true;
+					enemy2.friction = 0;
+					enemy2.pushRight(speed);
+					enemy2.scaleSize(Math.random() * (player.getWidth() / 50));
+					enemy2.moveTo(-enemy2.getWidth(), Math.random()*(enemy2.getClamp().y)); 
+				}
+			},2000);
+
+			sjs.left_screen.offset(-500);
+
+			//Score1
+			var score = 0;
+			var score_text = new sjs.Text("Score: 0",38,"blue"); 
+
+			sjs.onHit("player","enemy", function(x,y){
+				if(x.getWidth() > y.getWidth() &&
+					x.getHeight() > y.getHeight()) {
+					x.grow(15,10);
+				} else {
+					x.destroy();
+					window.location = "gameover.html";
+				}
+				y.destroy();
+			});
+
+			sjs.onHit("player","enemy2", function(x,y){
+				if(x.getWidth() > y.getWidth() &&
+					x.getHeight() > y.getHeight()) {
+					score = score + 1;
+					score_text.setText("Score: "+score);
+					localStorage.setItem("score", score);
+					x.grow(15,10);
+				} else {
+					x.destroy();
+					window.location = "gameover.html";
+				}
+				y.destroy();
+			});
+
+			//Score2
+			var score = 0;
+			var score_text = new sjs.Text("Score: 0",38,"blue"); 
+
+			sjs.onHit("player2","enemy", function(x,y){
+				if(x.getWidth() > y.getWidth() &&
+					x.getHeight() > y.getHeight()) {
+					x.grow(15,10);
+				} else {
+					x.destroy();
+					window.location = "gameover.html";
+				}
+				y.destroy();
+			});
+
+			sjs.onHit("player2","enemy2", function(x,y){
+				if(x.getWidth() > y.getWidth() &&
+					x.getHeight() > y.getHeight()) {
+					score = score + 1;
+					score_text.setText("Score: "+score);
+					localStorage.setItem("score", score);
+					x.grow(15,10);
+				} else {
+					x.destroy();
+					window.location = "gameover.html";
+				}
+				y.destroy();
+			});
+
+
+			//Player2
+			var player2 = new sjs.Image("Images/polar_bear_right.gif");
+				player.type = "player2";
+
+				player2.center();
+
+				player2.friction = .2;
+				player2.accel = .3;
+
+				sjs.keyDown(D_KEY, function(){
+					player2.setImage("Images/polar_bear_right.gif");
+					player2.pushRight();
+				});
+				
+				sjs.keyDown(A_KEY, function(){
+					player2.setImage("Images/polar_bear_left.gif");
+					player2.pushLeft();
+				});
+
+				sjs.keyDown(W_KEY, function(){
+					player2.pushUp();
+				});
+
+				sjs.keyDown(S_KEY, function(){
+					player2.pushDown();
+				});
+
+		}	//end start
+	</script>
+</head>
+<body onload="start()">
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Gameover </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open("target",1650,825);
+
+				var background = new sjs.Image("Images/background.png")
+				background.setSize(sjs.getWidth(),sjs.getHeight());
+
+				var restartBtn = new sjs.Button("Restart", function(){
+					window.location = "bear.html";
+				});
+				restartBtn.moveTo(825,412);
+
+				var menuBtn = new sjs.Button("Back to Menu", function(){
+					window.location = "index.html";
+				});			
+				menuBtn.moveTo(805,360);
+
+				var sleepy = new sjs.Image("Images/sleepy_bear.png");
+				sleepy.center();
+				sleepy.bottom();
+				sleepy.grow(200,205);
+
+				var honey = new sjs.Text("You had too much honey!",115,"orange");
+				honey.center();
+				honey.top();
+
+
+			}
+		</script>
+</head>
+<body onload="start()">
+
+		<div id="target" style="margin:auto;background:white;"></div>
+	</body>
+</html>
